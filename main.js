@@ -45,7 +45,7 @@ if (yearElement) {
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
-contactForm.addEventListener("submit", function (event) {
+contactForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   const name = document.getElementById("name").value.trim();
@@ -57,10 +57,38 @@ contactForm.addEventListener("submit", function (event) {
     return;
   }
 
-  formMessage.textContent =
-    `Thanks, ${name}! Your message has been prepared successfully.`;
+  const submitButton = contactForm.querySelector("button[type=\"submit\"]");
+  submitButton.disabled = true;
+  formMessage.textContent = "Sending your message...";
 
-  contactForm.reset();
+  try {
+    const response = await fetch("https://formsubmit.co/ajax/floresjayar2523@gmail.com", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        _subject: `Portfolio message from ${name}`,
+        _captcha: "false"
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Message could not be sent");
+    }
+
+    formMessage.textContent = `Thanks, ${name}! Your message was sent successfully.`;
+    contactForm.reset();
+  } catch (error) {
+    formMessage.textContent =
+      "Sorry, your message could not be sent. Please email me directly.";
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 
