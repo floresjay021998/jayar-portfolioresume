@@ -478,8 +478,10 @@ textarea {
 }
 
 .project-heading > p {
+  width: 100%;
   color: var(--gray-500);
   max-width: 450px;
+  line-height: 1.6;
 }
 
 .projects-grid {
@@ -605,6 +607,85 @@ textarea {
 .timeline-content h3 {
   color: var(--navy);
   font-size: 1.25rem;
+}
+
+.company-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 220ms ease;
+}
+
+.company-logo {
+  display: block;
+  width: clamp(4rem, 15vw, 6rem);
+  height: clamp(4rem, 15vw, 6rem);
+  flex: 0 0 clamp(4rem, 15vw, 6rem);
+  object-fit: contain;
+  padding: 0.45rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 8px 18px rgba(23, 43, 58, 0.1);
+  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+  animation: logo-arrive 700ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.company-link:hover .company-logo,
+.company-link:focus-visible .company-logo {
+  border-color: var(--blue);
+  box-shadow: 0 12px 24px rgba(224, 107, 60, 0.22);
+  transform: translateY(-4px) rotate(-4deg) scale(1.04);
+}
+
+.company-link::after {
+  content: "";
+  position: absolute;
+  left: calc(clamp(4rem, 15vw, 6rem) + 1rem);
+  right: 0;
+  bottom: -0.35rem;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.company-link:hover,
+.company-link:focus-visible {
+  transform: translateX(4px);
+}
+
+.company-link:hover::after,
+.company-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.company-link h3 {
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+.company-link:hover h3,
+.company-link:focus-visible h3 {
+  color: var(--blue);
+  transform: translateX(3px);
+}
+
+.company-link:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 5px;
+}
+
+.timeline-item:nth-child(2) .company-logo {
+  animation-delay: 120ms;
+}
+
+.timeline-item:nth-child(3) .company-logo {
+  animation-delay: 240ms;
 }
 
 .company {
@@ -867,6 +948,11 @@ textarea {
   .project-heading {
     grid-template-columns: 1fr 1fr;
     align-items: end;
+  }
+
+  .project-heading > p {
+    justify-self: end;
+    text-align: right;
   }
 
   .contact-grid {
@@ -1208,13 +1294,40 @@ h1, h2, h3, .logo, .btn, .nav-links, .section-label, .eyebrow {
   to { transform: rotate(360deg) translateX(10px); }
 }
 
+@keyframes logo-arrive {
+  from { opacity: 0; transform: scale(0.82) rotate(-8deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
 @media (max-width: 899px) {
   .nav-links { background: rgba(255, 253, 249, 0.97); }
   .profile-card { margin: 1rem 0.5rem 0 0; }
 }
 
+@media (max-width: 480px) {
+  .company-link {
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .company-logo {
+    width: clamp(3.5rem, 20vw, 4.5rem);
+    height: clamp(3.5rem, 20vw, 4.5rem);
+    flex-basis: clamp(3.5rem, 20vw, 4.5rem);
+  }
+
+  .company-link h3 {
+    font-size: 1.1rem;
+    line-height: 1.35;
+  }
+
+  .company-link::after {
+    left: calc(clamp(3.5rem, 20vw, 4.5rem) + 0.75rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-content, .hero-visual, .profile-card, .hero::before {
+  .hero-content, .hero-visual, .profile-card, .hero::before, .company-logo {
     animation: none;
   }
 }
