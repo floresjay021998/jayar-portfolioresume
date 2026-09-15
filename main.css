@@ -292,8 +292,12 @@ textarea {
 }
 
 .profile-logo {
+  width: clamp(76px, 24vw, 100px);
+  height: clamp(76px, 24vw, 100px);
   border-radius: 50%;      /* Makes the image a perfect circle */
-  object-fit: cover;       /* Prevents stretching if the image isn't perfectly square */
+  object-fit: cover;       /* Fills the responsive avatar frame */
+  object-position: center;
+  background: var(--white);
   border: 2px solid #ccc;  /* Optional: adds a clean border around the profile */
 }
 
@@ -402,11 +406,191 @@ textarea {
 
 .two-column {
   display: grid;
-  gap: 3rem;
+  gap: clamp(2.5rem, 7vw, 6rem);
 }
 
 .about-content {
   max-width: 650px;
+}
+
+.about-details-section {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-content: start;
+}
+
+.about-card-group {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.about-card-group > h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.about-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+}
+
+.about-flip-card {
+  min-height: 170px;
+  perspective: 1000px;
+  outline: none;
+  border-radius: var(--radius);
+}
+
+.about-flip-card-inner {
+  position: relative;
+  min-height: 170px;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.about-flip-card:hover .about-flip-card-inner,
+.about-flip-card:focus .about-flip-card-inner,
+.about-flip-card:focus-visible .about-flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.about-flip-card-front,
+.about-flip-card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.about-flip-card-front {
+  color: var(--white);
+  background: var(--navy);
+  box-shadow: 6px 6px 0 rgba(224, 107, 60, 0.2);
+}
+
+.about-flip-card-front::after {
+  content: "↗";
+  align-self: flex-end;
+  color: var(--blue);
+  font-size: 1.2rem;
+}
+
+.about-flip-card-front span {
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.about-flip-card-front h4,
+.about-flip-card-back h4 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.about-flip-card-back {
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--gray-500);
+  background: var(--white);
+  transform: rotateY(180deg);
+}
+
+.about-flip-card-back h4 {
+  color: var(--blue);
+}
+
+.about-flip-card-back p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.about-flip-card:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 5px;
+}
+
+.about-feature {
+  min-width: 0;
+  overflow: clip;
+}
+
+.about-image-wrap {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 2rem 0 0;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--navy);
+  box-shadow: 12px 12px 0 rgba(224, 107, 60, 0.18);
+  transform: translateY(0);
+  transition: transform 320ms ease, box-shadow 320ms ease;
+  animation: about-image-arrive 800ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.about-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(23, 43, 58, 0.05), rgba(224, 107, 60, 0.2));
+  mix-blend-mode: multiply;
+}
+
+.about-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 180px;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center;
+  background: var(--gray-50);
+  transition: transform 700ms cubic-bezier(.22, 1, .36, 1), filter 320ms ease;
+}
+
+.about-feature:hover .about-image-wrap,
+.about-feature:focus-within .about-image-wrap {
+  transform: translateY(-5px);
+  box-shadow: 16px 16px 0 rgba(224, 107, 60, 0.22);
+}
+
+.about-feature:hover .about-image,
+.about-feature:focus-within .about-image {
+  transform: scale(1.05);
+  filter: saturate(1.08);
+}
+
+.about-summary {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 1.25rem 1.4rem;
+  border-right: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  border-left: 3px solid var(--blue);
+  color: var(--gray-500);
+  background: var(--white);
+  box-shadow: 0 8px 20px rgba(23, 43, 58, 0.08);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  line-height: 1.7;
 }
 
 .about-content p {
@@ -503,30 +687,14 @@ textarea {
 }
 
 .project-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   height: 240px;
-  display: flex;
-  align-items: flex-end;
-  padding: 1.2rem;
-
-  color: rgba(255,255,255,0.7);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.project-image-one {
-  background:
-    linear-gradient(135deg, #071a33, #2563eb);
-}
-
-.project-image-two {
-  background:
-    linear-gradient(135deg, #102b4c, #0f766e);
-}
-
-.project-image-three {
-  background:
-    linear-gradient(135deg, #172554, #7c3aed);
+  object-fit: cover;
+  object-position: center;
+  padding: 0.75rem;
+  background: var(--gray-50);
 }
 
 .project-content {
@@ -625,7 +793,8 @@ textarea {
   width: clamp(4rem, 15vw, 6rem);
   height: clamp(4rem, 15vw, 6rem);
   flex: 0 0 clamp(4rem, 15vw, 6rem);
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   padding: 0.45rem;
   border: 1px solid var(--gray-200);
   border-radius: 50%;
@@ -858,6 +1027,93 @@ textarea {
 
 .footer a {
   color: var(--white);
+}
+
+/* =========================================
+   BRAND SLIDER
+========================================= */
+
+.brand-slider {
+  padding: 4rem 0;
+  overflow: hidden;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--off-white);
+}
+
+.brand-slider-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.brand-slider-heading p:last-child {
+  max-width: 25rem;
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.slider-container::before,
+.slider-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: clamp(2rem, 10vw, 9rem);
+  pointer-events: none;
+}
+
+.slider-container::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--off-white), transparent);
+}
+
+.slider-container::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--off-white), transparent);
+}
+
+.slide-track {
+  display: flex;
+  width: max-content;
+  animation: brand-scroll 34s linear infinite;
+}
+
+.brand-slide-set {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-right: clamp(1rem, 3vw, 2.5rem);
+}
+
+.brand-slide-set img {
+  display: block;
+  width: clamp(7rem, 16vw, 12rem);
+  height: clamp(4.5rem, 9vw, 6.5rem);
+  flex: 0 0 auto;
+  object-fit: contain;
+  padding: 0.8rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: 0 8px 18px rgba(23, 43, 58, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.brand-slide-set img:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-sm);
 }
 
 
@@ -1196,32 +1452,20 @@ h1, h2, h3, .logo, .btn, .nav-links, .section-label, .eyebrow {
 
 .project-image {
   position: relative;
-  height: 260px;
+  height: clamp(180px, 42vw, 260px);
+  min-height: 180px;
+  max-height: 260px;
   overflow: hidden;
+  border-bottom: 1px solid var(--gray-200);
+  animation: project-image-arrive 700ms cubic-bezier(.22, 1, .36, 1) both;
 }
 
-.project-image::after {
-  content: "";
-  position: absolute;
-  inset: 1.2rem;
-  border: 1px solid rgba(255, 253, 249, 0.38);
-  transform: translate(8px, -8px);
-  transition: transform 300ms ease;
+img {
+  max-width: 100%;
 }
 
-.project-card:hover .project-image::after {
-  transform: translate(0, 0);
-}
-
-.project-image-one { background: linear-gradient(135deg, #172b3a, #e06b3c); }
-.project-image-two { background: linear-gradient(135deg, #234657, #73999a); }
-.project-image-three { background: linear-gradient(135deg, #334c3e, #c8d56a); }
-
-.project-image span {
-  position: relative;
-  z-index: 1;
-  font-family: "Space Grotesk", sans-serif;
-}
+.project-card:nth-child(2) .project-image { animation-delay: 120ms; }
+.project-card:nth-child(3) .project-image { animation-delay: 240ms; }
 
 .timeline {
   border-left-color: var(--gray-200);
@@ -1299,9 +1543,68 @@ h1, h2, h3, .logo, .btn, .nav-links, .section-label, .eyebrow {
   to { opacity: 1; transform: scale(1) rotate(0); }
 }
 
+@keyframes about-image-arrive {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes project-image-arrive {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes brand-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @media (max-width: 899px) {
   .nav-links { background: rgba(255, 253, 249, 0.97); }
   .profile-card { margin: 1rem 0.5rem 0 0; }
+}
+
+@media (max-width: 639px) {
+  .two-column {
+    gap: 3.5rem;
+  }
+
+  .about-feature h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .about-image-wrap {
+    margin-top: 1.5rem;
+    box-shadow: 8px 8px 0 rgba(224, 107, 60, 0.18);
+  }
+
+  .about-summary {
+    padding: 1rem 1.1rem;
+  }
+
+  .about-flip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .about-flip-card,
+  .about-flip-card-inner {
+    min-height: 148px;
+  }
+
+  .about-flip-card-front,
+  .about-flip-card-back {
+    padding: 0.85rem;
+  }
+
+  .about-flip-card-front h4,
+  .about-flip-card-back h4 {
+    font-size: 0.9rem;
+  }
+
+  .about-flip-card-back p {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1327,7 +1630,9 @@ h1, h2, h3, .logo, .btn, .nav-links, .section-label, .eyebrow {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-content, .hero-visual, .profile-card, .hero::before, .company-logo {
+  .hero-content, .hero-visual, .profile-card, .hero::before, .company-logo,
+  .about-image-wrap, .about-flip-card-inner, .project-image, .slide-track {
     animation: none;
+    transition: none;
   }
 }
