@@ -917,7 +917,7 @@ textarea {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: clamp(110px, 18vw, 160px);
+  height: clamp(110px, 18vw, 160px);
   border-radius: 1rem;
   overflow: hidden;
   background: rgba(255, 253, 249, 0.85);
@@ -928,7 +928,7 @@ textarea {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .education-copy {
@@ -971,7 +971,7 @@ textarea {
   }
 
   .education-logo-wrap {
-    min-height: 110px;
+    height: 120px;
   }
 }
 
