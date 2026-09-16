@@ -40,7 +40,27 @@ body {
   font-family: "Inter", sans-serif;
   color: var(--gray-900);
   background: var(--white);
+  font-size: 16px;
   line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p,
+li,
+span,
+label,
+input,
+textarea,
+button {
+  font-size: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
 a {
@@ -176,18 +196,18 @@ textarea {
 .eyebrow,
 .section-label {
   color: var(--blue);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
 .hero h1 {
   color: var(--navy);
-  font-size: clamp(3rem, 12vw, 5.8rem);
-  line-height: 0.98;
-  letter-spacing: -4px;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
   font-weight: 800;
 }
 
@@ -195,9 +215,9 @@ textarea {
   display: block;
   color: var(--blue);
   margin-top: 0.7rem;
-  font-size: clamp(1.2rem, 3vw, 2.1rem);
+  font-size: clamp(1.15rem, 3vw, 2rem);
   line-height: 1.2;
-  letter-spacing: -1px;
+  letter-spacing: -0.04em;
   font-weight: 600;
 }
 
@@ -205,7 +225,8 @@ textarea {
   max-width: 650px;
   margin: 1.8rem 0;
   color: var(--gray-500);
-  font-size: 1.05rem;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.75;
 }
 
 .hero-buttons {
@@ -403,9 +424,9 @@ textarea {
 .two-column h2,
 .contact-intro h2 {
   color: var(--navy);
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  line-height: 1.1;
-  letter-spacing: -2px;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.05em;
 }
 
 .two-column {
@@ -593,13 +614,14 @@ textarea {
   color: var(--gray-500);
   background: var(--white);
   box-shadow: 0 8px 20px rgba(23, 43, 58, 0.08);
-  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
-  line-height: 1.7;
+  font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+  line-height: 1.8;
 }
 
 .about-content p {
   color: var(--gray-500);
   margin-bottom: 1.2rem;
+  font-size: 1rem;
 }
 
 .text-link {
@@ -723,12 +745,13 @@ textarea {
 
 .project-content > p {
   color: var(--gray-500);
-  font-size: 0.9rem;
+  font-size: 0.94rem;
+  line-height: 1.75;
 }
 
 .project-link {
   color: var(--navy);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
@@ -870,7 +893,8 @@ textarea {
 
 .timeline-content > p {
   color: var(--gray-500);
-  font-size: 0.9rem;
+  font-size: 0.96rem;
+  line-height: 1.8;
 }
 
 .tags {
@@ -918,10 +942,9 @@ textarea {
   justify-content: center;
   width: 100%;
   height: clamp(110px, 18vw, 160px);
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   overflow: hidden;
-  background: rgba(255, 253, 249, 0.85);
-  border: 1px solid rgba(23, 43, 58, 0.06);
+  background: #fff;
 }
 
 .education-logo {
@@ -929,6 +952,7 @@ textarea {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: center;
 }
 
 .education-copy {
@@ -968,10 +992,17 @@ textarea {
     grid-template-columns: 1fr;
     text-align: center;
     padding: 1.2rem;
+    gap: 1rem;
   }
 
   .education-logo-wrap {
+    width: min(100%, 220px);
     height: 120px;
+    margin: 0 auto;
+  }
+
+  .education-copy {
+    gap: 0.25rem;
   }
 }
 
@@ -999,6 +1030,8 @@ textarea {
 .contact-intro > p:not(.section-label) {
   color: #b5c3d3;
   max-width: 520px;
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 .contact-details {
@@ -1517,7 +1550,12 @@ h1, h2, h3, .logo, .btn, .nav-links, .section-label, .eyebrow {
 }
 
 img {
+  display: block;
+  width: 100%;
   max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .project-card:nth-child(2) .project-image { animation-delay: 120ms; }
@@ -1620,12 +1658,32 @@ img {
 }
 
 @media (max-width: 639px) {
+  body {
+    font-size: 15px;
+  }
+
   .two-column {
     gap: 3.5rem;
   }
 
   .about-feature h2 {
     font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .hero h1 {
+    letter-spacing: -0.05em;
+  }
+
+  .hero h1 span {
+    margin-top: 0.55rem;
+  }
+
+  .hero-description,
+  .about-summary,
+  .project-content > p,
+  .timeline-content > p,
+  .contact-intro > p:not(.section-label) {
+    line-height: 1.75;
   }
 
   .about-image-wrap {
