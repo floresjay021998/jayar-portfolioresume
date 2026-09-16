@@ -195,6 +195,10 @@ textarea {
   display: block;
   color: var(--blue);
   margin-top: 0.7rem;
+  font-size: clamp(1.2rem, 3vw, 2.1rem);
+  line-height: 1.2;
+  letter-spacing: -1px;
+  font-weight: 600;
 }
 
 .hero-description {
@@ -1087,7 +1091,7 @@ textarea {
 .slide-track {
   display: flex;
   width: max-content;
-  animation: brand-scroll 34s linear infinite;
+  animation: brand-scroll 55s linear infinite;
 }
 
 .brand-slide-set {
